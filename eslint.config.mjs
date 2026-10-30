@@ -5,10 +5,11 @@ const eslintConfig = [
     // Flat config only auto-ignores node_modules — build output and any
     // stray untracked artifact directories need to be excluded explicitly,
     // or eslint lints generated/minified JS as if it were source.
-    ignores: ['.next/**', '.next-*/**', 'public/**', 'next-env.d.ts'],
+    ignores: ['.next/**', '.next-*/**', 'public/**', 'next-env.d.ts', '.test-tmp/**', 'test-results/**'],
   },
   ...nextCoreWebVitals,
   {
+    files: ['**/*.{js,jsx,mjs,ts,tsx,mts,cts}'],
     // eslint-config-next@16 pulls in eslint-plugin-react-hooks@7 (the "React
     // Compiler" linter), which adds these four rules as errors by default.
     // They surface pre-existing findings across the app that no previous

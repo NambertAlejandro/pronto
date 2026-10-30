@@ -4,6 +4,19 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl
 
+  // TEMPUS owns authentication for these explicitly scoped local MVP routes.
+  // API handlers authorize every private read/write. Supabase routes retain their existing protection.
+  if (pathname === '/' || ['/entrar','/comecar','/configurar','/painel','/reservar','/reserva','/api/tempus'].some(p => pathname === p || pathname.startsWith(p + '/'))) {
+    const headers = new Headers(request.headers)
+    headers.set('x-tempus-page', '1')
+    return NextResponse.next({ request: { headers } })
+  }
+
+  // Public, isolated design preview. It does not authenticate or activate subscriptions.
+  if (pathname === '/contratar' || pathname.startsWith('/contratar/')) {
+    return NextResponse.next()
+  }
+
   // SaaS subdomain routing: rewrite openyoga.trypronto.app/book → /book/openyoga
   if (process.env.NEXT_PUBLIC_DEPLOYMENT_MODE === 'saas' && pathname === '/book') {
     const hostname = request.headers.get('host') ?? ''

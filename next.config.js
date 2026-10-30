@@ -46,6 +46,8 @@ if (appHost && !allowedOrigins.includes(appHost)) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  distDir: process.env.TEMPUS_BUILD_DIR || '.next',
+  devIndicators: false, // Keep the local design preview free of floating developer controls.
   output: 'standalone', // required for Docker multi-stage build
   agentRules: false, // repo has no CLAUDE.md convention; don't let Next scaffold one
   experimental: {

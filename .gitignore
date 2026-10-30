@@ -8,6 +8,7 @@
 
 # next.js
 /.next/
+/.next-*/
 /out/
 
 # production
@@ -55,3 +56,13 @@ unpacked_docx/
 
 # claude code session files
 .claude/
+
+# Tempus browser review outputs
+test-results/
+
+# Local TEMPUS persistence (contains customer data and session hashes)
+/.data/
+/.test-tmp/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal

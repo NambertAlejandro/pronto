@@ -10,7 +10,7 @@
  * under App Router.
  */
 import { defaultCache } from '@serwist/next/worker'
-import { ExpirationPlugin, NetworkFirst, Serwist } from 'serwist'
+import { ExpirationPlugin, NetworkFirst, NetworkOnly, Serwist } from 'serwist'
 import type { PrecacheEntry, SerwistGlobalConfig } from 'serwist'
 
 declare global {
@@ -27,6 +27,8 @@ const serwist = new Serwist({
   clientsClaim: true,
   navigationPreload: false,
   runtimeCaching: [
+    // Never store owner/customer information or session responses in a shared browser cache.
+    { matcher: ({ url }) => ['/api/tempus','/painel','/configurar','/entrar','/comecar','/reserva','/reservar'].some(p => url.pathname === p || url.pathname.startsWith(p + '/')), handler: new NetworkOnly() },
     // Cache Supabase API responses (stale-while-revalidate for freshness).
     // Not covered by defaultCache below — everything else in the old
     // next-pwa runtimeCaching config (fonts, /_next/static/*) is already

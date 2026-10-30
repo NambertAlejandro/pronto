@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
+
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale, getMessages } from 'next-intl/server'
+import { headers } from 'next/headers'
+import { unstable_rethrow } from 'next/navigation'
 import enMessages from '../messages/en.json'
 import './globals.css'
 
@@ -9,7 +11,7 @@ import './globals.css'
 // unavailable (see RootLayout below).
 const FALLBACK_MESSAGES = enMessages as Awaited<ReturnType<typeof getMessages>>
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata: Metadata = {
   title: 'Pronto — Business Management for Service SMBs',
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#2563eb',
+  themeColor: '#061a32',
   width: 'device-width',
   initialScale: 1,
   minimumScale: 1,
@@ -73,12 +75,13 @@ export default async function RootLayout({
     locale = await getLocale()
     messages = await getMessages()
   } catch (err) {
+    unstable_rethrow(err)
     console.error('[RootLayout] next-intl request config unavailable, falling back to en:', err)
   }
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={(await headers()).get('x-tempus-page') === '1' ? 'pt-BR' : locale}>
+      <body style={{ fontFamily: "Arial, Helvetica, sans-serif" }}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
