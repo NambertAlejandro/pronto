@@ -11,7 +11,7 @@ Leia TEMPUS_CODEX_MASTER_PROMPT.md integralmente. A instrução atual do proprie
 
 ## Identidade e UX
 - Português brasileiro. Marca TEMPUS, slogan “Seu tempo. Seu negócio.”.
-- Navy #061A32 / #112B47, dourado #D7AD65 / #F0C77E, branco e texto secundário #B6C5D6. Reutilizar a logo oficial de public/brand e a textura existente.
+- Interface TEMPUS clara e legível: canvas platina quente #ECE7DD, cartões #FFFDF9, texto grafite #292521, secundário #625C54 e destaque dourado #8A5A18 / #B7822D, derivados da logo. Navegação grafite #292724. Reutilizar a logo oficial de public/brand. Não voltar ao azul escuro sem novo pedido do proprietário.
 - Mobile-first. Alvos de toque de pelo menos 44px, campos a 16px, foco visível, labels, semântica, estados vazios, erro e carregamento. Respeitar prefers-reduced-motion.
 - Preservar /contratar e seus testes. Separar CSS do MVP para não alterar o checkout anterior.
 - Não inventar preços comerciais, métricas, depoimentos ou integrações ativas.
